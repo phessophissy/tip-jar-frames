@@ -17,7 +17,7 @@ interface FarcasterUser {
 }
 
 export function SendTip() {
-  const { address: connectedAddress } = useAccount();
+  const { address: connectedAddress, isConnected } = useAccount();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchResult, setSearchResult] = useState<FarcasterUser | null>(null);
@@ -26,8 +26,9 @@ export function SendTip() {
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [customAmount, setCustomAmount] = useState('0.01');
   const [tipSuccess, setTipSuccess] = useState(false);
+  const [tipError, setTipError] = useState('');
 
-  const { sendTransaction, data: txHash, isPending } = useSendTransaction();
+  const { sendTransaction, data: txHash, isPending, error: txError } = useSendTransaction();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash: txHash,
   });
@@ -37,9 +38,18 @@ export function SendTip() {
     if (isSuccess) {
       setTipSuccess(true);
       setShowCustomModal(false);
+      setTipError('');
       setTimeout(() => setTipSuccess(false), 5000);
     }
   }, [isSuccess]);
+
+  // Handle transaction error
+  useEffect(() => {
+    if (txError) {
+      console.error('Transaction error:', txError);
+      setTipError(txError.message || 'Transaction failed');
+    }
+  }, [txError]);
 
   const searchUser = async () => {
     if (!searchQuery.trim()) return;
@@ -49,7 +59,6 @@ export function SendTip() {
     setSearchResult(null);
 
     try {
-      // Remove @ if present
       const username = searchQuery.trim().replace(/^@/, '');
       const response = await fetch(`/api/user?username=${encodeURIComponent(username)}`);
       
@@ -69,14 +78,38 @@ export function SendTip() {
   };
 
   const handleTip = async (amount: string) => {
-    if (!connectedAddress || !searchResult) return;
+    if (!connectedAddress) {
+      setTipError('Please connect your wallet first');
+      return;
+    }
+    
+    if (!searchResult) {
+      setTipError('Please search for a user first');
+      return;
+    }
 
+    if (!TIPJAR_ADDRESS) {
+      setTipError('Contract not configured');
+      console.error('TIPJAR_ADDRESS is empty:', TIPJAR_ADDRESS);
+      return;
+    }
+
+    setTipError('');
+    
     try {
+      console.log('Sending tip:', {
+        to: TIPJAR_ADDRESS,
+        recipient: searchResult.walletAddress,
+        amount: amount,
+      });
+
       const data = encodeFunctionData({
         abi: TIPJAR_ABI,
         functionName: 'tip',
         args: [searchResult.walletAddress as Address],
       });
+
+      console.log('Encoded data:', data);
 
       sendTransaction({
         to: TIPJAR_ADDRESS as Address,
@@ -85,13 +118,14 @@ export function SendTip() {
       });
     } catch (error) {
       console.error('Tip failed:', error);
+      setTipError(error instanceof Error ? error.message : 'Failed to send tip');
     }
   };
 
   const handleCustomTip = () => {
     const amount = parseFloat(customAmount);
     if (isNaN(amount) || amount <= 0) {
-      alert('Please enter a valid amount');
+      setTipError('Please enter a valid amount');
       return;
     }
     handleTip(customAmount);
@@ -99,6 +133,13 @@ export function SendTip() {
 
   return (
     <div className="space-y-4">
+      {/* Debug info - remove in production */}
+      {!TIPJAR_ADDRESS && (
+        <div className="p-2 bg-red-500/20 border border-red-500 rounded text-xs text-red-400">
+          ⚠️ Contract address not configured. Check NEXT_PUBLIC_TIPJAR_ADDRESS_MAINNET env variable.
+        </div>
+      )}
+
       {/* Search Input */}
       <div>
         <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -174,18 +215,25 @@ export function SendTip() {
             </div>
           </div>
 
+          {/* Error Message */}
+          {tipError && (
+            <div className="mb-4 p-2 bg-red-500/20 border border-red-500/30 rounded-lg text-center">
+              <span className="text-red-400 text-sm">{tipError}</span>
+            </div>
+          )}
+
           {/* Tip Actions */}
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => handleTip(String(selectedAmount))}
-              disabled={isPending || isConfirming}
+              disabled={isPending || isConfirming || !isConnected}
               className="btn-primary text-sm py-3 disabled:opacity-50"
             >
-              {isPending ? 'Confirm...' : isConfirming ? 'Sending...' : `Tip ${selectedAmount} ETH`}
+              {isPending ? 'Confirm in wallet...' : isConfirming ? 'Sending...' : `Tip ${selectedAmount} ETH`}
             </button>
             <button
               onClick={() => setShowCustomModal(true)}
-              disabled={isPending || isConfirming}
+              disabled={isPending || isConfirming || !isConnected}
               className="btn-secondary text-sm py-3 disabled:opacity-50"
             >
               Custom 💜
@@ -232,9 +280,17 @@ export function SendTip() {
                 autoFocus
               />
             </div>
+            {tipError && (
+              <div className="mb-4 p-2 bg-red-500/20 border border-red-500/30 rounded-lg text-center">
+                <span className="text-red-400 text-sm">{tipError}</span>
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-3">
               <button
-                onClick={() => setShowCustomModal(false)}
+                onClick={() => {
+                  setShowCustomModal(false);
+                  setTipError('');
+                }}
                 className="btn-secondary"
                 disabled={isPending || isConfirming}
               >
@@ -245,7 +301,7 @@ export function SendTip() {
                 className="btn-primary"
                 disabled={isPending || isConfirming}
               >
-                {isPending || isConfirming ? 'Sending...' : 'Send Tip 💜'}
+                {isPending ? 'Confirm...' : isConfirming ? 'Sending...' : 'Send Tip 💜'}
               </button>
             </div>
           </div>
