@@ -1,26 +1,22 @@
-import { http, createConfig } from 'wagmi';
+import { http, createConfig, createStorage } from 'wagmi';
 import { base, baseSepolia } from 'wagmi/chains';
-import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
-
-const walletConnectProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '';
+import { coinbaseWallet, injected } from 'wagmi/connectors';
+import { farcasterFrame } from '@farcaster/miniapp-wagmi-connector';
 
 export const config = createConfig({
   chains: [base, baseSepolia],
   connectors: [
+    // Farcaster frame connector - prioritized when in a frame
+    farcasterFrame(),
+    // Fallback connectors for non-frame contexts
     injected(),
     coinbaseWallet({
       appName: 'Tip Jar Frames',
     }),
-    walletConnect({
-      projectId: walletConnectProjectId,
-      metadata: {
-        name: 'Tip Jar Frames',
-        description: 'Social-native tipping for Farcaster creators',
-        url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-        icons: ['/icon.svg'],
-      },
-    }),
   ],
+  storage: createStorage({
+    storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+  }),
   transports: {
     [base.id]: http(),
     [baseSepolia.id]: http(),

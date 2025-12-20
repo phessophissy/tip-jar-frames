@@ -1,9 +1,28 @@
 'use client';
 
-import { ConnectKitButton } from 'connectkit';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import Link from 'next/link';
+import { useFarcaster } from './FarcasterProvider';
 
 export function Header() {
+  const { isConnected, address } = useAccount();
+  const { connect, connectors } = useConnect();
+  const { disconnect } = useDisconnect();
+  const { isInFrame } = useFarcaster();
+
+  const handleConnect = () => {
+    const farcasterConnector = connectors.find(c => c.id === 'farcasterFrame');
+    const injectedConnector = connectors.find(c => c.id === 'injected');
+    
+    if (isInFrame && farcasterConnector) {
+      connect({ connector: farcasterConnector });
+    } else if (injectedConnector) {
+      connect({ connector: injectedConnector });
+    } else if (connectors[0]) {
+      connect({ connector: connectors[0] });
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-background)]/80 backdrop-blur-lg border-b border-white/5">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -20,7 +39,7 @@ export function Header() {
             Features
           </Link>
           <a 
-            href="https://github.com/your-repo/tip-jar-frames" 
+            href="https://github.com/phessophissy/tip-jar-frames"
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-400 hover:text-white transition"
@@ -29,7 +48,21 @@ export function Header() {
           </a>
         </nav>
 
-        <ConnectKitButton />
+        {isConnected ? (
+          <button 
+            onClick={() => disconnect()}
+            className="btn-secondary text-sm px-4 py-2"
+          >
+            {address?.slice(0, 6)}...{address?.slice(-4)}
+          </button>
+        ) : (
+          <button 
+            onClick={handleConnect}
+            className="btn-primary text-sm px-4 py-2"
+          >
+            Connect
+          </button>
+        )}
       </div>
     </header>
   );

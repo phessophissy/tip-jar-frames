@@ -2,7 +2,6 @@
 
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ConnectKitProvider } from 'connectkit';
 import { config } from '@/lib/wagmi';
 import { FarcasterProvider } from './FarcasterProvider';
 import { ReactNode, useState } from 'react';
@@ -21,20 +20,7 @@ export function Providers({ children }: { children: ReactNode }) {
     <FarcasterProvider>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <ConnectKitProvider
-            mode="dark"
-            options={{
-              initialChainId: 8453,
-            }}
-            customTheme={{
-              '--ck-accent-color': '#8B5CF6',
-              '--ck-accent-text-color': '#ffffff',
-              '--ck-connectbutton-background': '#1A1A2E',
-              '--ck-connectbutton-hover-background': '#25253A',
-            }}
-          >
-            {children}
-          </ConnectKitProvider>
+          {children}
         </QueryClientProvider>
       </WagmiProvider>
     </FarcasterProvider>
