@@ -26,26 +26,17 @@ export function TipHistory({ address }: TipHistoryProps) {
         const creatorStats = await getCreatorStats(address as Address);
         setStats(creatorStats);
         
-        // For now, we'll show mock recent tips since we don't have a full indexer
-        // In production, this would query the database/indexer
-        setRecentTips([
-          {
-            from: '0x1234...5678',
-            amount: '0.005',
-            timestamp: Date.now() - 3600000,
-            message: 'Thanks for the great content! 💜',
-          },
-          {
-            from: '0xabcd...efgh',
-            amount: '0.01',
-            timestamp: Date.now() - 7200000,
-          },
-          {
-            from: '0x9876...5432',
-            amount: '0.001',
-            timestamp: Date.now() - 86400000,
-          },
-        ]);
+        // Fetch real tip history from the indexer database
+        const response = await fetch(`/api/tips/history?recipient=${address}&limit=20`);
+        if (response.ok) {
+          const data = await response.json();
+          setRecentTips(data.tips.map((tip: any) => ({
+            from: tip.sender,
+            amount: (parseInt(tip.amount) / 1e18).toFixed(6),
+            timestamp: tip.timestamp,
+            message: tip.message,
+          })));
+        }
       } catch (error) {
         console.error('Failed to fetch tip history:', error);
       } finally {
