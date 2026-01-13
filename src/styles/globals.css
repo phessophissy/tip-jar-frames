@@ -1155,3 +1155,20 @@ body {
 .timeline-item:last-child::after {
     display: none;
 }
+
+.stepper {
+    @apply flex items-center justify-between;
+}
+.step {
+    @apply flex items-center gap-2;
+}
+.step-number {
+    @apply w-8 h-8 rounded-full flex-center text-sm font-bold;
+    @apply bg-[var(--color-surface-light)] text-[var(--color-text-muted)];
+}
+.step.active .step-number {
+    @apply bg-purple-500 text-white;
+}
+.step.completed .step-number {
+    @apply bg-green-500 text-white;
+}
