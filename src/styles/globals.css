@@ -861,3 +861,16 @@ body {
 }
 .spinner-sm { @apply w-4 h-4; }
 .spinner-lg { @apply w-8 h-8; }
+
+.empty-state {
+    @apply flex-col-center py-12 text-center;
+}
+.empty-state-icon {
+    @apply text-4xl mb-4 opacity-50;
+}
+.empty-state-title {
+    @apply text-lg font-medium mb-2;
+}
+.empty-state-desc {
+    @apply text-[var(--color-text-muted)] text-sm max-w-sm;
+}
