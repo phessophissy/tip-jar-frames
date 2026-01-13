@@ -986,3 +986,10 @@ body {
 .tx-failed {
     @apply bg-red-500/10 text-red-300;
 }
+
+.share-btn {
+    @apply btn-secondary flex items-center gap-2;
+}
+.share-btn-icon {
+    @apply w-5 h-5;
+}
