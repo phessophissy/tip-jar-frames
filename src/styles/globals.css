@@ -375,3 +375,12 @@ body {
 .alert-info {
     @apply bg-blue-500/10 border-blue-500/30 text-blue-300;
 }
+
+.modal-backdrop {
+    @apply fixed inset-0 bg-black/60 backdrop-blur-sm;
+    @apply flex items-center justify-center;
+    @apply opacity-0 pointer-events-none transition-opacity;
+}
+.modal-backdrop.open {
+    @apply opacity-100 pointer-events-auto;
+}
