@@ -1185,3 +1185,16 @@ body {
 .countdown-label {
     @apply text-xs text-[var(--color-text-muted)] uppercase tracking-wider;
 }
+
+.testimonial {
+    @apply card card-spacing;
+}
+.testimonial-content {
+    @apply text-lg italic mb-4;
+}
+.testimonial-author {
+    @apply flex items-center gap-3;
+}
+.testimonial-avatar {
+    @apply avatar avatar-md;
+}
