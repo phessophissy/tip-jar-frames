@@ -410,3 +410,16 @@ body {
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
 }
+
+.tooltip {
+    @apply relative;
+}
+.tooltip::before {
+    content: attr(data-tip);
+    @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1;
+    @apply bg-[var(--color-surface)] text-sm rounded-lg whitespace-nowrap;
+    @apply opacity-0 pointer-events-none transition-opacity;
+}
+.tooltip:hover::before {
+    @apply opacity-100;
+}
