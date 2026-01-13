@@ -838,3 +838,16 @@ body {
 .stat-label {
     @apply text-sm text-[var(--color-text-muted)] mt-1;
 }
+
+.feature-card {
+    @apply card card-spacing card-hover;
+}
+.feature-icon {
+    @apply icon-wrapper mb-4;
+}
+.feature-title {
+    @apply text-lg font-semibold mb-2;
+}
+.feature-desc {
+    @apply text-[var(--color-text-muted)] text-sm;
+}
