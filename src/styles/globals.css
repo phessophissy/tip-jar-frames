@@ -1264,3 +1264,13 @@ body {
 .pricing-feature {
     @apply flex items-center gap-2;
 }
+
+.cta {
+    @apply card gradient-primary text-center p-12 rounded-3xl;
+}
+.cta-title {
+    @apply text-3xl font-bold mb-4;
+}
+.cta-desc {
+    @apply text-white/80 mb-8 max-w-xl mx-auto;
+}
