@@ -786,3 +786,14 @@ body {
 .tab:not(.tab-active):hover {
     @apply text-white bg-white/5;
 }
+
+.menu {
+    @apply bg-[var(--color-surface)] rounded-xl border border-white/10 shadow-xl;
+    @apply min-w-[200px] py-2;
+}
+.menu-item {
+    @apply px-4 py-2 text-sm hover:bg-white/5 cursor-pointer transition-colors;
+}
+.menu-item-danger {
+    @apply text-red-400 hover:bg-red-500/10;
+}
