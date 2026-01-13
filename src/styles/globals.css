@@ -1172,3 +1172,16 @@ body {
 .step.completed .step-number {
     @apply bg-green-500 text-white;
 }
+
+.countdown {
+    @apply flex gap-4 text-center;
+}
+.countdown-item {
+    @apply flex flex-col;
+}
+.countdown-value {
+    @apply text-3xl font-bold font-mono gradient-text;
+}
+.countdown-label {
+    @apply text-xs text-[var(--color-text-muted)] uppercase tracking-wider;
+}
