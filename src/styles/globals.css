@@ -907,3 +907,10 @@ body {
 .menu-item-danger {
     @apply text-red-400 hover:bg-red-500/10;
 }
+
+.search-input {
+    @apply input pl-10;
+}
+.search-icon {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)];
+}
