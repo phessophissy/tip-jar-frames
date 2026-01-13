@@ -351,3 +351,11 @@ body {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
 }
+
+.progress-bar {
+    @apply h-2 bg-[var(--color-surface-light)] rounded-full overflow-hidden;
+}
+.progress-fill {
+    @apply h-full rounded-full transition-all duration-500;
+    background: linear-gradient(90deg, #8B5CF6, #EC4899);
+}
