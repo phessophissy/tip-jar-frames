@@ -384,3 +384,22 @@ body {
 .modal-backdrop.open {
     @apply opacity-100 pointer-events-auto;
 }
+
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+.btn-ripple::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.3s;
+}
+.btn-ripple:active::after {
+    transform: scale(2);
+    opacity: 1;
+    transition: 0s;
+}
