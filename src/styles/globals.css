@@ -628,3 +628,13 @@ body {
 .container-wide {
     @apply max-w-6xl mx-auto px-4;
 }
+
+.flex-center {
+    @apply flex items-center justify-center;
+}
+.flex-between {
+    @apply flex items-center justify-between;
+}
+.flex-col-center {
+    @apply flex flex-col items-center;
+}
