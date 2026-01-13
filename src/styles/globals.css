@@ -545,3 +545,10 @@ body {
 .flex-col-center {
     @apply flex flex-col items-center;
 }
+
+.section-spacing {
+    @apply py-16 md:py-24;
+}
+.card-spacing {
+    @apply p-6 md:p-8;
+}
