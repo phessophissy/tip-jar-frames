@@ -764,3 +764,11 @@ body {
 .empty-state-desc {
     @apply text-[var(--color-text-muted)] text-sm max-w-sm;
 }
+
+.list-item {
+    @apply flex items-center gap-4 p-4 rounded-xl;
+    @apply hover:bg-white/5 transition-colors cursor-pointer;
+}
+.list-item-active {
+    @apply bg-purple-500/10 border border-purple-500/30;
+}
