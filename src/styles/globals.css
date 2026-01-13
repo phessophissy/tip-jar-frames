@@ -327,3 +327,13 @@ body {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
 }
+
+.avatar {
+    @apply rounded-full overflow-hidden flex-shrink-0;
+}
+.avatar-sm { @apply w-8 h-8; }
+.avatar-md { @apply w-12 h-12; }
+.avatar-lg { @apply w-16 h-16; }
+.avatar-ring {
+    @apply ring-2 ring-purple-500 ring-offset-2 ring-offset-[var(--color-background)];
+}
