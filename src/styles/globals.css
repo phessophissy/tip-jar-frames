@@ -882,3 +882,17 @@ body {
 .list-item-active {
     @apply bg-purple-500/10 border border-purple-500/30;
 }
+
+.tabs {
+    @apply flex gap-1 p-1 rounded-xl bg-[var(--color-surface)];
+}
+.tab {
+    @apply flex-1 py-2 px-4 rounded-lg text-center text-sm font-medium;
+    @apply text-[var(--color-text-muted)] transition-all;
+}
+.tab-active {
+    @apply bg-purple-500 text-white;
+}
+.tab:not(.tab-active):hover {
+    @apply text-white bg-white/5;
+}
