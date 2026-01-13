@@ -965,3 +965,11 @@ body {
 .address-short {
     @apply truncate max-w-[120px];
 }
+
+.copy-btn {
+    @apply p-2 rounded-lg hover:bg-white/10 transition-colors;
+    @apply text-[var(--color-text-muted)] hover:text-white;
+}
+.copy-btn.copied {
+    @apply text-green-400;
+}
