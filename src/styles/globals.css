@@ -575,3 +575,7 @@ body {
 .transition-slow {
     @apply transition-all duration-500;
 }
+
+.focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:ring-offset-2 focus:ring-offset-[var(--color-background)];
+}
