@@ -973,3 +973,16 @@ body {
 .copy-btn.copied {
     @apply text-green-400;
 }
+
+.tx-status {
+    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm;
+}
+.tx-pending {
+    @apply bg-yellow-500/10 text-yellow-300;
+}
+.tx-success {
+    @apply bg-green-500/10 text-green-300;
+}
+.tx-failed {
+    @apply bg-red-500/10 text-red-300;
+}
