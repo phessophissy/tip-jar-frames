@@ -359,3 +359,19 @@ body {
     @apply h-full rounded-full transition-all duration-500;
     background: linear-gradient(90deg, #8B5CF6, #EC4899);
 }
+
+.alert {
+    @apply p-4 rounded-xl border;
+}
+.alert-success {
+    @apply bg-green-500/10 border-green-500/30 text-green-300;
+}
+.alert-error {
+    @apply bg-red-500/10 border-red-500/30 text-red-300;
+}
+.alert-warning {
+    @apply bg-yellow-500/10 border-yellow-500/30 text-yellow-300;
+}
+.alert-info {
+    @apply bg-blue-500/10 border-blue-500/30 text-blue-300;
+}
