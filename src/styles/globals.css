@@ -319,3 +319,11 @@ body {
 .badge-green {
     @apply bg-green-500/20 text-green-300;
 }
+
+.divider {
+    @apply border-t border-white/10 my-6;
+}
+.divider-gradient {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+}
