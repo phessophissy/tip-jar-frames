@@ -1061,3 +1061,13 @@ body {
 .testimonial-avatar {
     @apply avatar avatar-md;
 }
+
+.hero {
+    @apply relative min-h-[60vh] flex-col-center text-center section-spacing;
+}
+.hero-title {
+    @apply text-4xl md:text-6xl font-bold mb-6;
+}
+.hero-subtitle {
+    @apply text-xl text-[var(--color-text-muted)] max-w-2xl mb-8;
+}
