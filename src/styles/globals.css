@@ -658,3 +658,13 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.transition-fast {
+    @apply transition-all duration-150;
+}
+.transition-normal {
+    @apply transition-all duration-300;
+}
+.transition-slow {
+    @apply transition-all duration-500;
+}
