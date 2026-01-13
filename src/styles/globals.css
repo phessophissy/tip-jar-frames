@@ -645,3 +645,16 @@ body {
 .card-spacing {
     @apply p-6 md:p-8;
 }
+
+.text-balance {
+    text-wrap: balance;
+}
+.text-truncate {
+    @apply truncate;
+}
+.text-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
