@@ -1111,3 +1111,19 @@ body {
 .faq-item.open .faq-answer {
     @apply block;
 }
+
+.pricing-card {
+    @apply card card-spacing text-center;
+}
+.pricing-card.featured {
+    @apply gradient-border relative;
+}
+.pricing-price {
+    @apply text-4xl font-bold gradient-text my-4;
+}
+.pricing-features {
+    @apply space-y-3 text-left my-6;
+}
+.pricing-feature {
+    @apply flex items-center gap-2;
+}
