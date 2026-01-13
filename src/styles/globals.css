@@ -809,3 +809,14 @@ body {
     opacity: 0.03;
     pointer-events: none;
 }
+
+.icon-wrapper {
+    @apply w-10 h-10 rounded-xl flex-center;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+}
+.icon-wrapper-sm {
+    @apply w-8 h-8 rounded-lg;
+}
+.icon-wrapper-lg {
+    @apply w-14 h-14 rounded-2xl;
+}
