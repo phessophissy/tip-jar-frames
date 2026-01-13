@@ -1096,3 +1096,18 @@ body {
     @apply bg-[var(--color-surface-light)] text-[var(--color-text-muted)];
     @apply hover:bg-purple-500 hover:text-white transition-all;
 }
+
+.faq-item {
+    @apply border-b border-white/10;
+}
+.faq-question {
+    @apply py-4 flex-between cursor-pointer;
+    @apply font-medium hover:text-purple-400 transition-colors;
+}
+.faq-answer {
+    @apply pb-4 text-[var(--color-text-muted)];
+    @apply hidden;
+}
+.faq-item.open .faq-answer {
+    @apply block;
+}
