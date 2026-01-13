@@ -939,3 +939,12 @@ body {
 .toggle.active::after {
     @apply translate-x-5;
 }
+
+.number-input {
+    @apply input text-center font-mono text-lg;
+}
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
