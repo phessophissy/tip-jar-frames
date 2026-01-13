@@ -454,3 +454,17 @@ body {
 .avatar-ring {
     @apply ring-2 ring-purple-500 ring-offset-2 ring-offset-[var(--color-background)];
 }
+
+.status-dot {
+    @apply w-2 h-2 rounded-full;
+}
+.status-online { @apply bg-green-500; }
+.status-offline { @apply bg-gray-500; }
+.status-busy { @apply bg-red-500; }
+.status-pulse {
+    animation: pulse-status 2s infinite;
+}
+@keyframes pulse-status {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
