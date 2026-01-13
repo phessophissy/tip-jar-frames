@@ -286,3 +286,10 @@ body {
     opacity: 1;
     transition: 0s;
 }
+
+.skeleton {
+    @apply bg-[var(--color-surface-light)] rounded-lg;
+    background: linear-gradient(90deg, var(--color-surface-light) 25%, rgba(60, 60, 90, 0.5) 50%, var(--color-surface-light) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
