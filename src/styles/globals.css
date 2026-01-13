@@ -241,3 +241,10 @@ body {
 .animate-spin-slow {
     animation: spin-slow 3s linear infinite;
 }
+
+.glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(139, 92, 246, 0.2);
+}
+.glow-pink {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.4), 0 0 40px rgba(236, 72, 153, 0.2);
+}
