@@ -189,3 +189,14 @@ body {
     @apply transform -translate-y-1;
     box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
 }
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
