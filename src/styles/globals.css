@@ -1087,3 +1087,12 @@ body {
 .footer-link {
     @apply text-[var(--color-text-muted)] hover:text-white transition-colors;
 }
+
+.social-links {
+    @apply flex gap-4;
+}
+.social-link {
+    @apply w-10 h-10 rounded-full flex-center;
+    @apply bg-[var(--color-surface-light)] text-[var(--color-text-muted)];
+    @apply hover:bg-purple-500 hover:text-white transition-all;
+}
