@@ -993,3 +993,10 @@ body {
 .share-btn-icon {
     @apply w-5 h-5;
 }
+
+.qr-container {
+    @apply p-4 bg-white rounded-2xl;
+}
+.qr-container img {
+    @apply w-full h-auto;
+}
