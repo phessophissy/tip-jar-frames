@@ -923,3 +923,19 @@ body {
     @apply absolute -top-2 -right-2 min-w-[20px] h-5 px-1;
     @apply bg-red-500 rounded-full text-xs font-bold flex-center;
 }
+
+.toggle {
+    @apply relative w-11 h-6 bg-[var(--color-surface-light)] rounded-full cursor-pointer;
+    @apply transition-colors;
+}
+.toggle::after {
+    content: '';
+    @apply absolute left-1 top-1 w-4 h-4 bg-white rounded-full;
+    @apply transition-transform;
+}
+.toggle.active {
+    @apply bg-purple-500;
+}
+.toggle.active::after {
+    @apply translate-x-5;
+}
