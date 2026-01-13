@@ -528,3 +528,10 @@ body {
 .link-underline {
     @apply underline underline-offset-2 decoration-purple-500/50 hover:decoration-purple-500;
 }
+
+.container-narrow {
+    @apply max-w-2xl mx-auto px-4;
+}
+.container-wide {
+    @apply max-w-6xl mx-auto px-4;
+}
