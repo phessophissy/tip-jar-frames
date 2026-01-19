@@ -25,12 +25,19 @@ contract TipJar {
     /// @notice Minimum tip amount (0.0001 ETH) to prevent dust attacks
     uint256 public constant MIN_TIP_AMOUNT = 0.0001 ether;
 
+   
+
     // ═══════════════════════════════════════════════════════════════════════
     // STATE
     // ═══════════════════════════════════════════════════════════════════════
     
     /// @notice Protocol fee recipient
     address public immutable protocolFeeRecipient;
+
+   address public owner;
+   event OwnershipTransferred(address oldOwner, address newOwner);
+ 
+    event FeeRecipientUpdated(address oldRecipient, address newRecipient);
     
     /// @notice Total tips received by each creator (gross amount before fees)
     mapping(address => uint256) public totalTipsReceived;
@@ -124,6 +131,9 @@ contract TipJar {
     /// @param recipient The creator's address to tip
     /// @param message A message to include (emitted but not stored)
     function tipWithMessage(address recipient, string calldata message) external payable {
+           // Add validation
+        if (recipient == address(0)) revert InvalidRecipient();
+        if (msg.value < MIN_TIP_AMOUNT) revert TipTooSmall();
         // Message is in calldata for indexers to read, but we use the same logic
         this.tip{value: msg.value}(recipient);
         emit TipMessage(globalTipCount, message);
