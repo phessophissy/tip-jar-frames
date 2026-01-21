@@ -27,6 +27,8 @@ export function SendTip() {
   const [customAmount, setCustomAmount] = useState('0.01');
   const [tipSuccess, setTipSuccess] = useState(false);
   const [tipError, setTipError] = useState('');
+  const [sentAmount, setSentAmount] = useState<string>('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const { sendTransaction, data: txHash, isPending, error: txError } = useSendTransaction();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
@@ -240,10 +242,59 @@ export function SendTip() {
             </button>
           </div>
 
-          {/* Success Message */}
-          {tipSuccess && (
+          {/* Success Modal */}
+          {showSuccessModal && (
+            <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+              <div className="card p-6 max-w-sm w-full text-center">
+                <div className="text-6xl mb-4 animate-bounce">💜</div>
+                <h3 className="text-xl font-bold text-white mb-2">Tip Sent! 🎉</h3>
+                <p className="text-slate-400 text-sm mb-4">
+                  You sent {sentAmount} ETH to @{searchResult?.username}
+                </p>
+                {txHash && (
+                  <a
+                    href={`https://basescan.org/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-purple-400 text-sm hover:underline mb-4 block"
+                  >
+                    View on Basescan ↗
+                  </a>
+                )}
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => {
+                      setShowSuccessModal(false);
+                      setSearchResult(null);
+                      setSearchQuery('');
+                    }}
+                    className="btn-secondary"
+                  >
+                    Done
+                  </button>
+                  <button
+                    onClick={() => {
+                      const text = encodeURIComponent(
+                        `I just tipped @${searchResult?.username} ${sentAmount} ETH on Tip Jar! 💜`
+                      );
+                      window.open(
+                        `https://warpcast.com/~/compose?text=${text}`,
+                        '_blank'
+                      );
+                    }}
+                    className="btn-primary"
+                  >
+                    Share 🚀
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Simple Success Message (fallback) */}
+          {tipSuccess && !showSuccessModal && (
             <div className="mt-4 p-3 bg-green-500/20 border border-green-500/30 rounded-lg text-center">
-              <span className="text-green-400">✓ Tip sent successfully to @{searchResult.username}!</span>
+              <span className="text-green-400">✓ Tip sent successfully!</span>
             </div>
           )}
         </div>
