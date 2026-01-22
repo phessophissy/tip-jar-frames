@@ -294,6 +294,28 @@ export async function GET(request: NextRequest) {
             </div>
           )}
 
+          {/* Call-to-Action Banner */}
+          {state === 'default' && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                marginTop: '32px',
+                padding: '16px 24px',
+                background: 'rgba(139, 92, 246, 0.15)',
+                borderRadius: '12px',
+                border: '1px solid rgba(139, 92, 246, 0.3)',
+              }}
+            >
+              <span style={{ fontSize: '20px' }}>👆</span>
+              <span style={{ fontSize: '20px', color: '#E2E8F0', fontWeight: '600' }}>
+                Tap to tip on Base
+              </span>
+            </div>
+          )}
+
           {/* Branding */}
           <div
             style={{
